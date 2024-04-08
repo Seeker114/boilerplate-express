@@ -2,10 +2,17 @@ require('dotenv').config();
 let express = require('express');
 let app = express();
 
-
+app.use(function(req, res, next) {
+  console.log(req.method + " " + req.path + " - " + req.ip);
+  next();
+})
 
 let path = __dirname + "/public"
 app.use("/public", express.static(__dirname + "/public"));
+
+app.get("/", function(req, res) {
+  res.send("Hello World")
+})
 
 app.get("/json", function(req, res) {
   var response = "Hello json"
@@ -14,6 +21,8 @@ app.get("/json", function(req, res) {
   } 
   res.json({ message: response });
 });
+
+
 
 
 
