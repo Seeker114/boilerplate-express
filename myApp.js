@@ -10,6 +10,13 @@ app.use(function(req, res, next) {
 let path = __dirname + "/public"
 app.use("/public", express.static(__dirname + "/public"));
 
+app.get("/now",function(req, res, next ) {
+req.time = new Date().toString();
+next()
+},(req, res) => {
+res.send({time: req.time})
+});
+
 app.get("/", function(req, res) {
   res.send("Hello World")
 })
