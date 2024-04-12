@@ -2,6 +2,8 @@ require('dotenv').config();
 let express = require('express');
 let app = express();
 
+
+
 app.use(function(req, res, next) {
   console.log(req.method + " " + req.path + " - " + req.ip);
   next();
@@ -15,6 +17,10 @@ req.time = new Date().toString();
 next()
 },(req, res) => {
 res.send({time: req.time})
+});
+
+app.get("/:word/echo",(req, res) => {
+  res.json({echo : req.params.word});
 });
 
 app.get("/", function(req, res) {
